@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import HomeNavigator from './HomeNavigator';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import FolderNavigator from './FolderNavigator';
@@ -9,16 +9,16 @@ import NoteInFolderNavigator from './NoteInFolderNavigator';
 import BeginNavigator from './BeginNavigator';
 import LoginNavigator from './LoginNavigator';
 import RegisterNavigator from './RegisterNavigator';
-import {AuthContext} from '../context/AuthContext';
+import {useSelector} from 'react-redux';
 
 const Drawer = createDrawerNavigator();
 export default function MainNavigator() {
-  const {token} = useContext(AuthContext);
+  const {isAuthenticated} = useSelector((state) => state.authReducer);
   return (
     <Drawer.Navigator
-      initialRouteName={token ? 'Home' : 'Begin'}
+      initialRouteName={isAuthenticated ? 'Home' : 'Begin'}
       drawerContent={(props) => <DrawerContent {...props} />}>
-      {token ? (
+      {isAuthenticated ? (
         <>
           <Drawer.Screen name="Home" component={HomeNavigator} />
           <Drawer.Screen name="Profile" component={ProfileNavigator} />

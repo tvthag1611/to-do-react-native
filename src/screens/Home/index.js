@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,83 +6,55 @@ import {
   SafeAreaView,
   TextInput,
   FlatList,
-  RefreshControl,
   ActivityIndicator,
   Image,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import TodoItem from '../../elements/TodoItem';
 import LogoSmall from '../../assets/logo_smaill.png';
 import ButtonAdd from '../../elements/ButtonAdd';
-import {AuthContext} from '../../context/AuthContext';
-import axios from 'axios';
-import {BASE_URL} from '../../utils/config';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  getAllNotesAsync,
+  searchAllNotesAsync,
+  setItemNotes,
+} from '../../store/notes';
 
 export default function Home({navigation}) {
+  const dispatch = useDispatch();
+
   const [searchText, setSearchText] = useState('');
-  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  const {token} = useContext(AuthContext);
+  const {isLoading, searchedNotes} = useSelector((state) => state.noteReducer);
 
-  const todoList = [
-    {
-      title: 'Yoga',
-      content: 'This is yoga',
-      folder: 'Công việc',
-      time: '11 : 00 27/02/2022',
-    },
-    {
-      title: 'Yoga 2',
-      content: 'This is yoga',
-      folder: 'Công việc',
-      time: '11 : 00 27/02/2022',
-    },
-    {
-      title: 'Yoga 3',
-      folder: 'Công việc',
-      content: 'This is yoga',
-      time: '11 : 00 27/02/2022',
-    },
-    {
-      title: 'Yoga 4',
-      folder: 'Công việc',
-      content: 'This is yoga',
-      time: '11 : 00 27/02/2022',
-    },
-  ];
+  console.log(searchedNotes);
 
-  const getListNotes = async () => {
-    const res = await axios.get(`${BASE_URL}/note`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (res) {
-      console.log(res);
-    }
-  };
+  useEffect(() => {
+    dispatch(getAllNotesAsync());
+  }, [dispatch]);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    getListNotes().then(() => setRefreshing(false));
+    dispatch(getAllNotesAsync()).then(() => setRefreshing(false));
   }, []);
 
   const renderFooter = () => {
     return (
       <View style={styles.footer}>
-        {loading ? (
+        {isLoading ? (
           <ActivityIndicator color="black" style={{margin: 15}} />
         ) : null}
       </View>
     );
   };
 
-  const onSearch = (value) => {
+  const onSearch = async (value) => {
     setSearchText(value);
-    // axios.
+    await dispatch(searchAllNotesAsync(value));
   };
 
   return (
@@ -103,14 +75,12 @@ export default function Home({navigation}) {
       </View>
       <FlatList
         style={{padding: 20}}
-        data={todoList}
+        data={searchedNotes}
         renderItem={({item}) => (
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('Note', {
-                screen: 'Note',
-                params: {itemTitle: item.title},
-              });
+              dispatch(setItemNotes({noteItem: item}));
+              navigation.navigate('Note');
             }}>
             <TodoItem {...item} />
           </TouchableOpacity>
@@ -120,8 +90,7 @@ export default function Home({navigation}) {
         }
         keyExtractor={(item, index) => index.toString()}
         ListFooterComponent={renderFooter}
-        onEndReached={getListNotes}
-        onEndReachedThreshold={0.5}
+        ListEmptyComponent={<Text>Không có note nào cả</Text>}
       />
       <ButtonAdd navigation={navigation} />
     </SafeAreaView>

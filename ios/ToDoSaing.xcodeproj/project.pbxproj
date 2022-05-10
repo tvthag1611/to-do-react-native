@@ -16,22 +16,6 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ToDoSaingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ToDoSaingTests.m */; };
-		7295354725E2587100ED80C6 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295351225E24B5000ED80C6 /* AntDesign.ttf */; };
-		7295354825E2587100ED80C6 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295351425E24B5000ED80C6 /* Entypo.ttf */; };
-		7295354925E2587100ED80C6 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350F25E24B5000ED80C6 /* EvilIcons.ttf */; };
-		7295354A25E2587100ED80C6 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295351525E24B5100ED80C6 /* Feather.ttf */; };
-		7295354B25E2587100ED80C6 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295351325E24B5000ED80C6 /* FontAwesome.ttf */; };
-		7295354C25E2587100ED80C6 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350C25E24B5000ED80C6 /* FontAwesome5_Brands.ttf */; };
-		7295354D25E2587100ED80C6 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350825E24B5000ED80C6 /* FontAwesome5_Regular.ttf */; };
-		7295354E25E2587100ED80C6 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350725E24B5000ED80C6 /* FontAwesome5_Solid.ttf */; };
-		7295354F25E2587100ED80C6 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350A25E24B5000ED80C6 /* Fontisto.ttf */; };
-		7295355025E2587100ED80C6 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350625E24B5000ED80C6 /* Foundation.ttf */; };
-		7295355125E2587100ED80C6 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350B25E24B5000ED80C6 /* Ionicons.ttf */; };
-		7295355225E2587100ED80C6 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350D25E24B5000ED80C6 /* MaterialCommunityIcons.ttf */; };
-		7295355325E2587100ED80C6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350925E24B5000ED80C6 /* MaterialIcons.ttf */; };
-		7295355425E2587100ED80C6 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295351025E24B5000ED80C6 /* Octicons.ttf */; };
-		7295355525E2587100ED80C6 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295350E25E24B5000ED80C6 /* SimpleLineIcons.ttf */; };
-		7295355625E2587100ED80C6 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7295351125E24B5000ED80C6 /* Zocial.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A570D8E9FDDC35FB802D5B9C /* libPods-ToDoSaing-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF12954D1671705CE58256E /* libPods-ToDoSaing-tvOS.a */; };
 		A9BE9AD906EC9EC250CBB627 /* libPods-ToDoSaing-ToDoSaingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799AB917BDF1005783FFDF12 /* libPods-ToDoSaing-ToDoSaingTests.a */; };
@@ -403,22 +387,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7295354725E2587100ED80C6 /* AntDesign.ttf in Resources */,
-				7295354825E2587100ED80C6 /* Entypo.ttf in Resources */,
-				7295354925E2587100ED80C6 /* EvilIcons.ttf in Resources */,
-				7295354A25E2587100ED80C6 /* Feather.ttf in Resources */,
-				7295354B25E2587100ED80C6 /* FontAwesome.ttf in Resources */,
-				7295354C25E2587100ED80C6 /* FontAwesome5_Brands.ttf in Resources */,
-				7295354D25E2587100ED80C6 /* FontAwesome5_Regular.ttf in Resources */,
-				7295354E25E2587100ED80C6 /* FontAwesome5_Solid.ttf in Resources */,
-				7295354F25E2587100ED80C6 /* Fontisto.ttf in Resources */,
-				7295355025E2587100ED80C6 /* Foundation.ttf in Resources */,
-				7295355125E2587100ED80C6 /* Ionicons.ttf in Resources */,
-				7295355225E2587100ED80C6 /* MaterialCommunityIcons.ttf in Resources */,
-				7295355325E2587100ED80C6 /* MaterialIcons.ttf in Resources */,
-				7295355425E2587100ED80C6 /* Octicons.ttf in Resources */,
-				7295355525E2587100ED80C6 /* SimpleLineIcons.ttf in Resources */,
-				7295355625E2587100ED80C6 /* Zocial.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
@@ -463,6 +431,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ToDoSaing-ToDoSaingTests/Pods-ToDoSaing-ToDoSaingTests-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -483,6 +452,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -549,6 +519,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-ToDoSaing/Pods-ToDoSaing-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -569,6 +540,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",

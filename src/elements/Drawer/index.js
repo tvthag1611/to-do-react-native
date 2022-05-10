@@ -1,18 +1,23 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import React, {useContext} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
 import {
   Avatar,
   Caption,
   Drawer,
-  Paragraph,
   Title,
   TouchableRipple,
 } from 'react-native-paper';
-import {AuthContext} from '../../context/AuthContext';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../store/auth';
 
 export default function DrawerContent(props) {
-  const {logout} = useContext(AuthContext);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    props.navigation.closeDrawer();
+  };
 
   return (
     <View style={{flex: 1}}>
@@ -61,10 +66,7 @@ export default function DrawerContent(props) {
             />
             <DrawerItem
               label="Đăng xuất"
-              onPress={() => {
-                logout();
-                props.navigation.closeDrawer();
-              }}
+              onPress={handleLogout}
               labelStyle={{fontSize: 18, fontWeight: 'bold'}}
             />
           </Drawer.Section>

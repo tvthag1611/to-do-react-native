@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,16 +6,38 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Toast from 'react-native-toast-message';
+import {useDispatch} from 'react-redux';
+import {deleteFolderAsync, editFolderAsync} from '../../store/folder';
 import BottomPopup from '../BottomPopup';
-import CreateNewFolder from '../CreateNewFolder';
 
-const FolderItem = ({name, numberOfNotes, navigation}) => {
+const FolderItem = ({folder, navigation}) => {
+  const dispatch = useDispatch();
+
   const [show, setShow] = useState(false);
-  const [nameFolder, setNameFolder] = useState(name);
+  const [folderItem, setFolderItem] = useState(folder);
+
+  useEffect(() => {
+    setFolderItem(folder);
+  }, [folder]);
+
+  console.log(folderItem);
 
   const onLongPress = () => {
     setShow(true);
+  };
+
+  const onEdit = async () => {
+    const res = await dispatch(editFolderAsync(folderItem));
+    if (res) {
+      setShow(false);
+    }
+  };
+
+  const onDelete = async () => {
+    const res = await dispatch(deleteFolderAsync(folderItem.id));
+    if (res) {
+      setShow(false);
+    }
   };
 
   return (
@@ -23,27 +45,32 @@ const FolderItem = ({name, numberOfNotes, navigation}) => {
       onPress={() => {
         navigation.navigate('NoteInFolder', {
           screen: 'NoteInFolder',
-          params: {name},
+          params: {folder: folderItem},
         });
       }}
       onLongPress={onLongPress}
       style={styles.folder}>
-      <Text style={styles.name}>{name}</Text>
-      <Text>{numberOfNotes} notes</Text>
+      <Text style={styles.name}>{folderItem.name}</Text>
       <BottomPopup show={show} onClose={() => setShow(false)}>
         <View>
-          <Text style={styles.title}>Tạo folder mới</Text>
+          <Text style={styles.title}>Sửa folder</Text>
           <TextInput
             style={styles.input}
-            onChangeText={setNameFolder}
-            value={nameFolder}
+            onChangeText={(value) =>
+              setFolderItem({...folderItem, name: value})
+            }
+            value={folderItem?.name}
             placeholder="Tên folder"
           />
           <View style={styles.buttonWrapper}>
-            <TouchableOpacity style={[styles.button, styles.buttonDelete]}>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonDelete]}
+              onPress={onDelete}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>Xoá</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.buttonSave]}>
+            <TouchableOpacity
+              style={[styles.button, styles.buttonSave]}
+              onPress={onEdit}>
               <Text style={{fontSize: 20, fontWeight: 'bold'}}>Lưu</Text>
             </TouchableOpacity>
           </View>

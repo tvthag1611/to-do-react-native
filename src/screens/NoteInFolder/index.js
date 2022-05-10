@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,37 +7,41 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
 } from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from 'react-redux';
 import TodoItem from '../../elements/TodoItem';
+import {getAllNoteInFolderAsync} from '../../store/folder';
 
 export default function NoteInFolder({route, navigation}) {
-  const todoList = [
-    {
-      title: 'Yoga',
-      content: 'This is yoga',
-      folder: 'Công việc',
-      time: '11 : 00 27/02/2022',
-    },
-    {
-      title: 'Yoga 2',
-      content: 'This is yoga',
-      folder: 'Công việc',
-      time: '11 : 00 27/02/2022',
-    },
-    {
-      title: 'Yoga 3',
-      folder: 'Công việc',
-      content: 'This is yoga',
-      time: '11 : 00 27/02/2022',
-    },
-    {
-      title: 'Yoga 4',
-      folder: 'Công việc',
-      content: 'This is yoga',
-      time: '11 : 00 27/02/2022',
-    },
-  ];
+  const dispatch = useDispatch();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const {isLoading, noteInFolder} = useSelector((state) => state.folderReducer);
+
+  useEffect(() => {
+    dispatch(getAllNoteInFolderAsync(route.params.folder.id));
+  }, [dispatch, route.params.folder.id]);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(getAllNoteInFolderAsync(route.params.folder.id)).then(() =>
+      setRefreshing(false),
+    );
+  }, []);
+
+  const renderFooter = () => {
+    return (
+      <View style={styles.footer}>
+        {isLoading ? (
+          <ActivityIndicator color="black" style={{margin: 15}} />
+        ) : null}
+      </View>
+    );
+  };
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -49,11 +53,11 @@ export default function NoteInFolder({route, navigation}) {
           }}>
           <Icon name="left" size={30} />
         </TouchableWithoutFeedback>
-        <Text style={styles.title}>{route.params.name}</Text>
+        <Text style={styles.title}>{route.params.folder.name}</Text>
       </View>
       <FlatList
         style={{padding: 20}}
-        data={todoList}
+        data={noteInFolder}
         renderItem={({item}) => (
           <TouchableOpacity
             onPress={() => {
@@ -65,13 +69,12 @@ export default function NoteInFolder({route, navigation}) {
             <TodoItem {...item} />
           </TouchableOpacity>
         )}
-        // refreshControl={
-        //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        // }
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         keyExtractor={(item, index) => index.toString()}
-        // ListFooterComponent={renderFooter}
-        // onEndReached={getCoinsAsync}
-        // onEndReachedThreshold={0.5}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={<Text>Không có note nào cả</Text>}
       />
     </SafeAreaView>
   );

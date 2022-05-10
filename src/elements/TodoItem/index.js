@@ -1,12 +1,23 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
-const TodoItem = ({title, folder, time}) => {
+const TodoItem = ({title, folder, dateCreate, dateSet}) => {
   return (
     <View style={styles.todo}>
       <Text style={styles.title}>{title}</Text>
-      <Text>at {folder}</Text>
-      <Text style={styles.time}>{time}</Text>
+      <Text>at {folder ? folder.name : 'All notes'}</Text>
+      {dateSet && (
+        <View style={styles.reminder}>
+          <Icon name="bells" size={20} color="white" />
+          <Text style={{marginLeft: 5, color: 'white'}}>
+            {new Date(dateSet).toLocaleString('vi')}
+          </Text>
+        </View>
+      )}
+      <Text style={styles.time}>
+        {new Date(dateCreate).toLocaleString('vi')}
+      </Text>
     </View>
   );
 };
@@ -27,6 +38,15 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 14,
     marginTop: 24,
+  },
+  reminder: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    backgroundColor: '#E3266C',
+    padding: 5,
+    borderRadius: 10,
   },
 });
 

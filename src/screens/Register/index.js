@@ -1,8 +1,6 @@
 import {Link} from '@react-navigation/native';
-import React, {useContext, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
-  Button,
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,8 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {AuthContext} from '../../context/AuthContext';
+import {useDispatch, useSelector} from 'react-redux';
 import LoadingOverlay from '../../elements/LoadingOverlay';
+import {registerAsync, verifyOtpAsync} from '../../store/auth';
 
 export default function Register({navigation}) {
   const [name, setName] = useState('');
@@ -21,14 +20,17 @@ export default function Register({navigation}) {
 
   const [otp, setOtp] = useState('');
 
-  const {isLoading, verifyOtp, isVerifyOtp, register} = useContext(AuthContext);
+  const dispatch = useDispatch();
 
-  const handleRegister = () => {
-    register(name, username, email, password);
+  const {isLoading, isVerifyOtp} = useSelector((state) => state.authReducer);
+
+  const handleRegister = async () => {
+    const data = {name, username, email, password};
+    await dispatch(registerAsync(data));
   };
 
   const completeRegist = async () => {
-    const res = await verifyOtp(otp);
+    const res = await dispatch(verifyOtpAsync({otp}));
     if (res) {
       navigation.navigate('Login');
     }

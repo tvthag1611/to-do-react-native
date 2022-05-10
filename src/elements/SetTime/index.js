@@ -1,18 +1,61 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import DatePicker from 'react-native-date-picker';
 
-export default function SetTime() {
+export default function SetTime({setTime, time, setShowSetTime}) {
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (time) {
+      setDate(new Date(time));
+    }
+  }, [time]);
+
   return (
     <View>
       <Text style={styles.title}>Vui lòng cài thời gian</Text>
+
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity style={[styles.button, styles.buttonDelete]}>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: 'white'}]}
+          onPress={() => setOpen(true)}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            {date.toLocaleString('vi')}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <TouchableOpacity
+          style={[styles.button, styles.buttonDelete]}
+          onPress={() => {
+            setTime('dateSet', null);
+            setShowSetTime(false);
+          }}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>Xoá</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.buttonSave]}>
+        <TouchableOpacity
+          style={[styles.button, styles.buttonSave]}
+          onPress={() => {
+            setTime('dateSet', date);
+            setShowSetTime(false);
+          }}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}>Lưu</Text>
         </TouchableOpacity>
       </View>
+      <DatePicker
+        modal
+        open={open}
+        date={date}
+        onConfirm={(date) => {
+          setOpen(false);
+          setDate(date);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      />
     </View>
   );
 }

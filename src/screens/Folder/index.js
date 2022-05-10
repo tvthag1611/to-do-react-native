@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -17,69 +17,31 @@ import Plus from '../../assets/plus.png';
 import BottomPopup from '../../elements/BottomPopup';
 import FolderItem from '../../elements/FolderItem';
 import CreateNewFolder from '../../elements/CreateNewFolder';
-import SetTime from '../../elements/SetTime';
-import ChooseFolder from '../../elements/ChooseFolder';
-import {BASE_URL} from '../../utils/config';
-import axios from 'axios';
-import {AuthContext} from '../../context/AuthContext';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllFolderAsync} from '../../store/folder';
 
 const Folder = ({navigation}) => {
-  const folders = [
-    {
-      name: 'Công việc',
-      numberOfNotes: 10,
-    },
-    {
-      name: 'Công việc',
-      numberOfNotes: 10,
-    },
-    {
-      name: 'Công việc',
-      numberOfNotes: 10,
-    },
-    {
-      name: 'Công việc',
-      numberOfNotes: 10,
-    },
-    {
-      name: 'Công việc',
-      numberOfNotes: 10,
-    },
-    {
-      name: 'Công việc',
-      numberOfNotes: 10,
-    },
-    {
-      plusFolder: true,
-    },
-  ];
+  const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const [refreshing, setRefreshing] = useState(false);
 
-  const {token} = useContext(AuthContext);
+  const {isLoading, folders} = useSelector((state) => state.folderReducer);
 
-  const getListFolders = async () => {
-    const res = await axios.get(`${BASE_URL}/folder`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (res) {
-      console.log(res);
-    }
-  };
+  useEffect(() => {
+    dispatch(getAllFolderAsync());
+  }, [dispatch]);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    getListFolders().then(() => setRefreshing(false));
+    dispatch(getAllFolderAsync()).then(() => setRefreshing(false));
   }, []);
 
   const renderFooter = () => {
     return (
       <View style={styles.footer}>
-        {loading ? (
+        {isLoading ? (
           <ActivityIndicator color="black" style={{margin: 15}} />
         ) : null}
       </View>
@@ -109,18 +71,16 @@ const Folder = ({navigation}) => {
               </TouchableOpacity>
             );
           }
-          return <FolderItem {...item} navigation={navigation} />;
+          return <FolderItem folder={item} navigation={navigation} />;
         }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         keyExtractor={(item, index) => index.toString()}
         ListFooterComponent={renderFooter}
-        onEndReached={getListFolders}
-        onEndReachedThreshold={0.5}
       />
       <BottomPopup show={show} onClose={() => setShow(false)}>
-        <CreateNewFolder />
+        <CreateNewFolder setShow={setShow} />
       </BottomPopup>
     </SafeAreaView>
   );

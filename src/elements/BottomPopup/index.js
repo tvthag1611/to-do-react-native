@@ -1,4 +1,4 @@
-import React, {createRef, useState} from 'react';
+import React from 'react';
 import {Modal, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 
 const BottomPopup = ({show, onClose, children}) => {

@@ -1,8 +1,17 @@
 import React from 'react';
-import {Button, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {TouchableWithoutFeedback, View} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {useDispatch} from 'react-redux';
+import {setItemNotes} from '../../store/notes';
 
 export default function ButtonAdd({navigation}) {
+  const dispatch = useDispatch();
+
+  const clickCreate = () => {
+    dispatch(setItemNotes({noteItem: null}));
+    navigation.navigate('Note');
+  };
+
   return (
     <View
       style={{
@@ -18,7 +27,7 @@ export default function ButtonAdd({navigation}) {
         shadowOpacity: 0.4,
         shadowRadius: 2,
       }}>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate('Note')}>
+      <TouchableWithoutFeedback onPress={clickCreate}>
         <Icon name="plus" size={30} color="white" />
       </TouchableWithoutFeedback>
     </View>

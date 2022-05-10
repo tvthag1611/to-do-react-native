@@ -6,9 +6,20 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {createFolderAsync} from '../../store/folder';
 
-const CreateNewFolder = () => {
+const CreateNewFolder = ({setShow}) => {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
+
+  const onCreate = async () => {
+    const res = await dispatch(createFolderAsync({name}));
+    if (res) {
+      setShow(false);
+    }
+  };
 
   return (
     <View>
@@ -19,7 +30,7 @@ const CreateNewFolder = () => {
         value={name}
         placeholder="Tên folder"
       />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={onCreate}>
         <Text style={{fontSize: 20, fontWeight: 'bold'}}>Tạo</Text>
       </TouchableOpacity>
     </View>

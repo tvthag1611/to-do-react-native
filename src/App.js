@@ -10,17 +10,21 @@ import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import MainNavigator from './navigators/MainNavigator';
-import {AuthProvider} from './context/AuthContext';
 import Toast from 'react-native-toast-message';
+import {store} from './store';
+import {Provider} from 'react-redux';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure();
 
 const App = () => {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <NavigationContainer>
         <MainNavigator />
         <Toast />
       </NavigationContainer>
-    </AuthProvider>
+    </Provider>
   );
 };
 

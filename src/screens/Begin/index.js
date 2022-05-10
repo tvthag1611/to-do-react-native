@@ -1,7 +1,6 @@
 import {Link} from '@react-navigation/native';
 import React from 'react';
 import {
-  Button,
   Image,
   SafeAreaView,
   StyleSheet,

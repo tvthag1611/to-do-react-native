@@ -11,14 +11,46 @@ import {
   View,
 } from 'react-native';
 import Logo from '../../assets/logo.png';
-import {AuthContext} from '../../context/AuthContext';
 import LoadingOverlay from '../../elements/LoadingOverlay';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAsync} from '../../store/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 export default function Login({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const {isLoading, login} = useContext(AuthContext);
+  const dispatch = useDispatch();
+
+  const {isLoading} = useSelector((state) => state.authReducer);
+
+  const login = async () => {
+    const data = {username, password};
+    const res = await dispatch(loginAsync(data));
+    if (res) {
+      navigation.navigate('Home');
+    }
+  };
+
+  // const signIn = async () => {
+  //   try {
+  //     await GoogleSignin.hasPlayServices();
+  //     const userInfo = await GoogleSignin.signIn();
+  //     console.log(userInfo);
+  //   } catch (error) {
+  //     console.log(error);
+  //     // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+  //     //   // user cancelled the login flow
+  //     // } else if (error.code === statusCodes.IN_PROGRESS) {
+  //     //   // operation (e.g. sign in) is in progress already
+  //     // } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //     //   // play services not available or outdated
+  //     // } else {
+  //     //   // some other error happened
+  //     // }
+  //   }
+  // };
+
   return (
     <SafeAreaView style={styles.begin}>
       {isLoading && <LoadingOverlay />}
@@ -39,14 +71,7 @@ export default function Login({navigation}) {
           secureTextEntry
           autoCapitalize="none"
         />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={async () => {
-            const res = await login(username, password);
-            if (res) {
-              navigation.navigate('Home');
-            }
-          }}>
+        <TouchableOpacity style={styles.button} onPress={login}>
           <Text style={{fontSize: 18, fontWeight: 'bold'}}>Đăng nhập</Text>
         </TouchableOpacity>
         <Text style={{color: 'white', textAlign: 'center'}}>
@@ -55,7 +80,9 @@ export default function Login({navigation}) {
             Tạo tài khoản
           </Link>
         </Text>
-        <TouchableOpacity style={[styles.button, {backgroundColor: '#9ECCF6'}]}>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: '#9ECCF6'}]}
+          onPress={signIn}>
           <Text style={{fontSize: 18, fontWeight: 'bold'}}>
             Tiếp tục với Google
           </Text>
