@@ -1,5 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {apiLogin, apiRegister, apiVerifyOtp} from '../../api/auth.api';
+import {
+  apiLogin,
+  apiLoginGoogle,
+  apiRegister,
+  apiVerifyOtp,
+} from '../../api/auth.api';
 import qs from 'qs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
@@ -64,6 +69,49 @@ export const loginAsync = (data) => {
           return true;
         },
         (error) => {
+          if (error.response) {
+            Toast.show({
+              type: 'error',
+              text1: error.response.data ? error.response.data : error.message,
+            });
+          }
+          dispatch(setItemAuth({isLoading: false}));
+          return false;
+        },
+      )
+      .catch((error) => {
+        if (error.response) {
+          Toast.show({
+            type: 'error',
+            text1: error.response.data ? error.response.data : error.message,
+          });
+        }
+        dispatch(setItemAuth({isLoading: false}));
+        return false;
+      });
+  };
+};
+
+export const loginGoogleAsync = (idTokenString) => {
+  return async (dispatch) => {
+    const config = {
+      params: {
+        idTokenString,
+      },
+    };
+
+    dispatch(setItemAuth({isLoading: true}));
+
+    return await apiLoginGoogle({}, config)
+      .then(
+        (response) => {
+          setToken(response.data.access_token);
+          dispatch(loginRemember(response.data));
+          dispatch(setItemAuth({isLoading: false}));
+          return true;
+        },
+        (error) => {
+          console.log(error);
           if (error.response) {
             Toast.show({
               type: 'error',

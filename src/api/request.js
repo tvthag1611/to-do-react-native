@@ -9,9 +9,12 @@ axiosInstane.interceptors.request.use(
     // Do something before request is sent
     const tk = await AsyncStorage.getItem('token');
 
-    config.headers = {
-      Authorization: `Bearer ${tk}`,
-    };
+    if (tk) {
+      config.headers = {
+        Authorization: `Bearer ${tk}`,
+      };
+    }
+
     return config;
   },
   async (error) => {

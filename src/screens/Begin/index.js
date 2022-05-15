@@ -9,8 +9,37 @@ import {
   View,
 } from 'react-native';
 import Logo from '../../assets/logo.png';
+import {GoogleSignin, statusCodes} from 'react-native-google-signin';
+import {useDispatch} from 'react-redux';
+import {loginGoogleAsync} from '../../store/auth';
 
 export default function Begin({navigation}) {
+  const dispatch = useDispatch();
+
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const {idToken} = await GoogleSignin.signIn();
+      const res = await dispatch(loginGoogleAsync(idToken));
+      if (res) {
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log('Cancel');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('Signin in progress');
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('PLAY_SERVICES_NOT_AVAILABLE');
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
+
   return (
     <SafeAreaView style={styles.begin}>
       <Text style={styles.title}>Bắt đầu thôi</Text>
@@ -27,7 +56,9 @@ export default function Begin({navigation}) {
             Đăng nhập
           </Link>
         </Text>
-        <TouchableOpacity style={[styles.button, {backgroundColor: '#9ECCF6'}]}>
+        <TouchableOpacity
+          style={[styles.button, {backgroundColor: '#9ECCF6'}]}
+          onPress={signIn}>
           <Text style={{fontSize: 18, fontWeight: 'bold'}}>
             Tiếp tục với Google
           </Text>

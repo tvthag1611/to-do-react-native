@@ -10,6 +10,11 @@ import {
 } from 'react-native-paper';
 import {useDispatch} from 'react-redux';
 import {logout} from '../../store/auth';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from 'react-native-google-signin';
 
 export default function DrawerContent(props) {
   const dispatch = useDispatch();

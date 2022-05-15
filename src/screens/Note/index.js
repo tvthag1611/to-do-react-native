@@ -25,7 +25,7 @@ export default function Note({navigation}) {
     description: '',
     folder: null,
     dateSet: null,
-    dateCreate: new Date(),
+    dateCreate: new Date().toString(),
   });
 
   const [showChooseFolder, setShowChooseFolder] = useState(false);
@@ -45,7 +45,7 @@ export default function Note({navigation}) {
         description: '',
         folder: null,
         dateSet: null,
-        dateCreate: new Date(),
+        dateCreate: new Date().toString(),
       });
     }
   }, [noteItem]);

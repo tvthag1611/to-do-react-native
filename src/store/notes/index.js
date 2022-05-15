@@ -23,8 +23,8 @@ const notesSlice = createSlice({
       Object.assign(state, action.payload);
     },
     addNote: (state, action) => {
-      state.notes.unshift(action.payload);
-      state.searchedNotes.unshift(action.payload);
+      state.notes.push(action.payload);
+      state.searchedNotes.push(action.payload);
     },
     editNote: (state, action) => {
       const index = state.notes.findIndex(

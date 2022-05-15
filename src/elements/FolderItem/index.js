@@ -82,8 +82,8 @@ const FolderItem = ({folder, navigation}) => {
 
 const styles = StyleSheet.create({
   folder: {
-    width: '50%',
-    padding: 30,
+    width: 176,
+    height: 120,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

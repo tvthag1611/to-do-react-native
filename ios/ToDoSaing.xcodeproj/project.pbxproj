@@ -16,6 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ToDoSaingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ToDoSaingTests.m */; };
+		7239D694282CAD1F00C52566 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7239D693282CAD1F00C52566 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A570D8E9FDDC35FB802D5B9C /* libPods-ToDoSaing-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DF12954D1671705CE58256E /* libPods-ToDoSaing-tvOS.a */; };
 		A9BE9AD906EC9EC250CBB627 /* libPods-ToDoSaing-ToDoSaingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799AB917BDF1005783FFDF12 /* libPods-ToDoSaing-ToDoSaingTests.a */; };
@@ -58,6 +59,7 @@
 		46A9C0D0BB783A348C36AA04 /* Pods-ToDoSaing-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoSaing-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ToDoSaing-tvOSTests/Pods-ToDoSaing-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		5527C4A3F8B65405D0657F6F /* Pods-ToDoSaing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoSaing.release.xcconfig"; path = "Target Support Files/Pods-ToDoSaing/Pods-ToDoSaing.release.xcconfig"; sourceTree = "<group>"; };
 		60292350CE02B9979823C5CA /* libPods-ToDoSaing-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ToDoSaing-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7239D693282CAD1F00C52566 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7295350625E24B5000ED80C6 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		7295350725E24B5000ED80C6 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		7295350825E24B5000ED80C6 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				7239D693282CAD1F00C52566 /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -389,6 +392,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				7239D694282CAD1F00C52566 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +426,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		15C1EA65D96829C5A91A2000 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

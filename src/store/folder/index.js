@@ -22,7 +22,8 @@ const foldersSlice = createSlice({
       Object.assign(state, action.payload);
     },
     addFolder: (state, action) => {
-      state.folders.unshift(action.payload);
+      state.folders[state.folders.length - 1] = action.payload;
+      state.folders.push({plusFolder: true});
     },
     editFolder: (state, action) => {
       const index = state.folders.findIndex(

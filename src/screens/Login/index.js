@@ -1,8 +1,6 @@
 import {Link} from '@react-navigation/native';
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
-  Button,
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -10,11 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import Logo from '../../assets/logo.png';
 import LoadingOverlay from '../../elements/LoadingOverlay';
 import {useDispatch, useSelector} from 'react-redux';
-import {loginAsync} from '../../store/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {loginAsync, loginGoogleAsync} from '../../store/auth';
+import {GoogleSignin, statusCodes} from 'react-native-google-signin';
 
 export default function Login({navigation}) {
   const [username, setUsername] = useState('');
@@ -32,24 +29,30 @@ export default function Login({navigation}) {
     }
   };
 
-  // const signIn = async () => {
-  //   try {
-  //     await GoogleSignin.hasPlayServices();
-  //     const userInfo = await GoogleSignin.signIn();
-  //     console.log(userInfo);
-  //   } catch (error) {
-  //     console.log(error);
-  //     // if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-  //     //   // user cancelled the login flow
-  //     // } else if (error.code === statusCodes.IN_PROGRESS) {
-  //     //   // operation (e.g. sign in) is in progress already
-  //     // } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-  //     //   // play services not available or outdated
-  //     // } else {
-  //     //   // some other error happened
-  //     // }
-  //   }
-  // };
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const data = await GoogleSignin.signIn();
+      console.log(data.idToken);
+      const res = await dispatch(loginGoogleAsync(data.idToken));
+      if (res) {
+        navigation.navigate('Home');
+      }
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+        console.log('Cancel');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('Signin in progress');
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('PLAY_SERVICES_NOT_AVAILABLE');
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={styles.begin}>

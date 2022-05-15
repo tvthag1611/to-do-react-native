@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   plus: {
-    width: '50%',
-    padding: 30,
+    width: 176,
+    height: 120,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
